@@ -66,10 +66,7 @@ def server():
         # If a connection is heard, the clientSocket object and ip_address from the connection are unpacked into 
         # the 'clientsocket' and 'address' variables
         clientsocket, address = s.accept() 
-        print "[S]: Got a connection request from a client at", address
-
-        # sending a message back to client    
-        # clientsocket.send("Welcome to CS 352". encode('utf-8'))
+        print "[S]: Got a connection request from a client at", address        
 
         # recieving word given by client
         client_domain = clientsocket.recv(100).decode('utf-8')

@@ -30,11 +30,6 @@ def convertFileToArray(file_path):
     return result  
 
 def client():
-    # file_path = "PROJI-HNS.txt"
-
-    # host_names = convertFileToArray(file_path)            
-
-    # user_domain = sys.argv[1]
     file_path = sys.argv[1] + ""
 
     rs_listen_port = int(sys.argv[2])
@@ -83,13 +78,11 @@ def client():
             ts_server_response = ts.recv(100)
 
             decodedWord = ts_server_response.decode('utf-8')
-
-            # print "\n" + decodedWord + "\n"
+            
             f = open("RESOLVED.TXT", 'a+')
             f.write(decodedWord + '\n')
             f.close()
-        else:
-            # print "\n" + decodedWord + "\n"
+        else:            
             f = open("RESOLVED.TXT", 'a+')
             f.write(decodedWord + '\n')
             f.close()
