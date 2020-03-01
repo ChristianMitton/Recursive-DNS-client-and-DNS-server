@@ -26,19 +26,25 @@ def convertFileToArray(file_path):
         splitString = line.split()        
 
         result.append(splitString)
-                
+    
+    f.close()
     return result  
 
+def clearFile(file_path):
+    open(file_path, 'w').close()
+
 def client():
+    clearFile("RESOLVED.txt")
+
     file_path = sys.argv[1] + ""
 
     rs_listen_port = int(sys.argv[2])
 
     ts_listen_port = int(sys.argv[3])
 
-    host_names = convertFileToArray(file_path)
+    host_names = convertFileToArray(file_path)    
 
-    for user_domain in host_names:    
+    for user_domain in host_names:          
         user_domain = user_domain[0]    
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -79,11 +85,11 @@ def client():
 
             decodedWord = ts_server_response.decode('utf-8')
             
-            f = open("RESOLVED.TXT", 'a+')
+            f = open("RESOLVED.txt", 'a+')
             f.write(decodedWord + '\n')
             f.close()
         else:            
-            f = open("RESOLVED.TXT", 'a+')
+            f = open("RESOLVED.txt", 'a+')
             f.write(decodedWord + '\n')
             f.close()
         

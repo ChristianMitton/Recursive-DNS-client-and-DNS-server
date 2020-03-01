@@ -26,7 +26,8 @@ def convertFileToArray(file_path):
         splitString = line.split()        
 
         result.append(splitString)
-                
+    
+    f.close()
     return result    
 
 def getDomainFromTable(dns_table, client_domain):
