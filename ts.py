@@ -30,7 +30,8 @@ def getDomainFromTable(dns_table, client_domain):
         flag = row[2]
 
         if(client_domain == hostname):
-            return  ip_address       
+            entry = ' '.join(row)
+            return entry
 
     return False
 
@@ -82,7 +83,7 @@ def server():
             print "[S]: Could not find domain. Sending '" + serverMsg + "' back to client\n"
             clientsocket.send(serverMsg.encode('utf-8'))
         else:
-            serverMsg = client_domain + " " + dns_ipaddress + " A"
+            serverMsg = dns_ipaddress
             print "[S]: Found domain.\n> Sending '" + serverMsg + "' back to client\n"
             clientsocket.send(serverMsg.encode('utf-8'))        
 

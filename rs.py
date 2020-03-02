@@ -37,9 +37,18 @@ def getDomainFromTable(dns_table, client_domain):
         flag = row[2]
 
         if(client_domain == hostname):
-            return  ip_address       
+            entry = ' '.join(row)
+            return entry       
 
     return False
+
+def getTSHostName(dns_table):
+    for row in dns_table:
+        flag = row[2]
+        if(flag == 'NS'):
+            entry = ' '.join(row)            
+            # print('entry: ' + entry)
+            return entry
 
 
 def server():
@@ -57,6 +66,7 @@ def server():
         print('{} \n'.format("socket open error ",err))
 
     # bind the socket to an ip address and port number, using tuples: s.bind(<ip_address>, <port_number>)      
+    #? Node: socket.gethostname is the ip address of whatever machine server is running on. It doesn't change
     s.bind((socket.gethostname(), listen_port))    
     
     host=socket.gethostname()
@@ -84,12 +94,12 @@ def server():
         # search for domain in dns_table
         dns_ipaddress = getDomainFromTable(dns_table, client_domain)
 
-        if(dns_ipaddress == False):            
-            serverMsg =  client_domain + ' - NS'                        
+        if(dns_ipaddress == False):                        
+            serverMsg =  getTSHostName(dns_table)
             print "[S]: Could not find domain. Sending '" + serverMsg + "' back to client\n"
             clientsocket.send(serverMsg.encode('utf-8'))
-        else:
-            serverMsg = client_domain + " " + dns_ipaddress + " A"
+        else:            
+            serverMsg = dns_ipaddress
             print "[S]: Found domain.\n> Sending '" + serverMsg + "' back to client\n"
             clientsocket.send(serverMsg.encode('utf-8'))
 
