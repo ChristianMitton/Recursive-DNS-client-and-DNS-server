@@ -46,8 +46,6 @@ def client():
 
     host_names = convertFileToArray(file_path)    
 
-    print("rs_host_name: " + rs_host_name)
-
     for user_domain in host_names:          
         user_domain = user_domain[0]    
         try:
@@ -82,7 +80,7 @@ def client():
                 # print("[C]: Client socket created")
             except ts.error as err:
                 print('{} \n'.format("socket open error ",err))   
-            # TODO: replace socket.gethostname with local host recieved from server
+            
             connection = (socket.gethostbyname(TSHostName), ts_listen_port)
             ts.connect(connection)
 
@@ -108,5 +106,3 @@ def client():
 client()
 
 # print("Arguments:\n> " + sys.argv[0] + "\n> " + sys.argv[1])
-
-#? rsHostname is the 'server host name' of whatever machine is running the server
